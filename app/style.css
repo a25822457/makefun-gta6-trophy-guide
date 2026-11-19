@@ -1,0 +1,96 @@
+/* Leonida Trophy Guide — own look: deep night purple, Vice City neon pink/cyan. No external assets. */
+:root {
+  --bg: #12081f;
+  --panel: #1d0f30;
+  --panel2: #251640;
+  --ink: #f4eefb;
+  --muted: #b9a8d6;
+  --line: #3a2358;
+  --pink: #ff4d9d;
+  --cyan: #37e0d8;
+  --gold: #ffc857;
+  --silver: #c9d4e3;
+  --bronze: #e0955a;
+  --plat: #b8f1ff;
+  --danger: #ff5a5a;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+}
+a { color: var(--cyan); }
+.hero {
+  padding: 28px 20px 20px;
+  background: linear-gradient(135deg, #2b0f4d 0%, #12081f 55%, #0b2b33 100%);
+  border-bottom: 2px solid var(--pink);
+}
+.kicker { color: var(--cyan); text-transform: uppercase; letter-spacing: .14em; font-size: 12px; margin: 0 0 6px; }
+.hero h1 { margin: 0 0 6px; font-size: 40px; line-height: 1.05; }
+.sub { color: var(--muted); max-width: 760px; margin: 0 0 16px; }
+.progress-wrap { max-width: 760px; }
+.progress-bar { height: 12px; background: #2a1845; border-radius: 6px; overflow: hidden; }
+.progress-bar div { height: 100%; background: linear-gradient(90deg, var(--pink), var(--cyan)); }
+#progress { font-weight: 700; margin: 8px 0 2px; }
+.grades { color: var(--muted); margin: 0; font-size: 14px; }
+
+.roadmap { padding: 20px; max-width: 1100px; margin: 0 auto; }
+.roadmap h2 { margin: 0 0 6px; font-size: 24px; }
+.roadmap-note { color: var(--muted); max-width: 900px; }
+.stages { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 14px; }
+.stage { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px; }
+.stage h3 { margin: 0 0 6px; font-size: 17px; color: var(--cyan); }
+.stage p { margin: 0; color: var(--muted); font-size: 14px; }
+.stage p strong { color: var(--ink); }
+.stage.platinum h3 { color: var(--plat); }
+.stage .count { color: var(--gold); font-size: 13px; }
+
+.controls {
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+  padding: 14px 20px; max-width: 1100px; margin: 0 auto;
+  background: var(--panel); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+}
+.controls input[type="search"] {
+  flex: 1 1 200px; padding: 9px 12px; border-radius: 8px;
+  border: 1px solid var(--line); background: #150a26; color: var(--ink); font-size: 15px;
+}
+.controls select {
+  padding: 8px; border-radius: 8px; border: 1px solid var(--line);
+  background: #150a26; color: var(--ink); font-size: 14px;
+}
+.controls label { font-size: 14px; color: var(--muted); }
+.controls .check { display: flex; gap: 6px; align-items: center; color: var(--ink); }
+.controls button, .controls .import {
+  padding: 9px 14px; border-radius: 8px; border: 1px solid var(--pink);
+  background: var(--pink); color: #fff; font-size: 14px; cursor: pointer;
+}
+.controls .import { background: transparent; color: var(--pink); }
+.controls .import input { display: none; }
+.hint { max-width: 1100px; margin: 10px auto 0; padding: 0 20px; color: var(--muted); font-size: 13px; }
+
+.list {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px;
+  padding: 16px 20px 24px; max-width: 1100px; margin: 0 auto;
+}
+.card {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px;
+  border-left: 5px solid var(--bronze);
+}
+.card[data-grade="platinum"] { border-left-color: var(--plat); }
+.card[data-grade="gold"] { border-left-color: var(--gold); }
+.card[data-grade="silver"] { border-left-color: var(--silver); }
+.card.earned { opacity: .62; }
+.card.earned h3 { text-decoration: line-through; }
+.card.missable { outline: 1px dashed var(--danger); outline-offset: -1px; }
+.card-head { display: flex; gap: 10px; align-items: flex-start; }
+.card-head input[type="checkbox"] { width: 20px; height: 20px; margin-top: 3px; accent-color: var(--pink); flex: none; }
+.card-title h3 { margin: 0; font-size: 18px; line-height: 1.25; }
+.meta { margin: 2px 0 0; color: var(--gold); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; }
+.desc { color: var(--muted); font-style: italic; margin: 10px 0 6px; }
+.guide { margin: 0 0 8px; font-size: 15px; }
+.sources { margin: 0; font-size: 12px; color: var(--muted); }
+.spoiler-note { color: var(--muted); font-size: 14px; margin: 10px 0 0; }
+footer { max-width: 1100px; margin: 0 auto; padding: 0 20px 28px; color: var(--muted); font-size: 13px; }
