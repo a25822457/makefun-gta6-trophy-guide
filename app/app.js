@@ -1,3 +1,4 @@
+// Leonida Trophy Guide — tracker logic. Re-witnessed 2026-11-20.
 // Leonida Trophy Guide: tracker for all 55 GTA VI trophies.
 // Progress is saved in localStorage; export/import moves it between devices.
 // Spoiler setting hides story (hidden) trophies until they are earned.
