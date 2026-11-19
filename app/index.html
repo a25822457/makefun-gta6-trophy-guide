@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leonida Trophy Guide — GTA VI, all 55 trophies</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <p class="kicker">Grand Theft Auto VI &middot; PlayStation 5 &middot; offline guide &amp; tracker</p>
+  <h1>Leonida Trophy Guide</h1>
+  <p class="sub">Every one of the 55 trophies, with a guide in our own words and the source for every fact. Tick them off as you earn them — progress is saved on this device.</p>
+  <div class="progress-wrap">
+    <div class="progress-bar"><div id="bar" style="width:0%"></div></div>
+    <p id="progress">0 of 55 earned &middot; 0% to the Platinum</p>
+    <p id="grades" class="grades"></p>
+  </div>
+</header>
+
+<div class="controls">
+  <input id="search" type="search" placeholder="Search trophies…" aria-label="Search trophies">
+  <label>Grade
+    <select id="grade">
+      <option value="all">All grades</option>
+      <option value="platinum">Platinum</option>
+      <option value="gold">Gold</option>
+      <option value="silver">Silver</option>
+      <option value="bronze">Bronze</option>
+    </select>
+  </label>
+  <label>Category
+    <select id="kind">
+      <option value="all">All categories</option>
+      <option value="story">Story</option>
+      <option value="collectible">Collectibles</option>
+      <option value="activity">Activities</option>
+      <option value="robbery">Robberies</option>
+      <option value="exploration">Exploration</option>
+      <option value="economy">Money</option>
+      <option value="completion">Completion</option>
+      <option value="misc">Miscellaneous</option>
+    </select>
+  </label>
+  <label class="check"><input id="missable" type="checkbox"> Missable only</label>
+  <label class="check"><input id="spoiler" type="checkbox" checked> Hide story spoilers</label>
+  <label class="check"><input id="hideEarned" type="checkbox"> Hide earned</label>
+  <button id="export" type="button">Export progress</button>
+  <label class="import">Import progress <input id="import" type="file" accept="application/json"></label>
+</div>
+<p class="hint">Tap a trophy to open its guide and sources. Story trophies stay hidden while the spoiler setting is on — tick one off and it reveals itself.</p>
+
+<main id="list" class="list"></main>
+
+<section class="roadmap" id="roadmap">
+  <h2>Roadmap to the Platinum — about 200 hours</h2>
+  <p class="roadmap-note">One playthrough is enough. There is no mission replay and no New Game Plus, so keep a manual save at the start of every chapter and one untouched save from just before the final mission. Cheats switch off trophies and saving — keep them off your trophy save. Sources: KeenGamer, Output Lag.</p>
+  <div class="stages">
+    <article class="stage">
+      <h3>Stage 1 — Play the story <span class="count" id="count1"></span></h3>
+      <p>Finish all five chapters with Jason and Lucia. Story trophies pop as you go. <strong>Do Lucia&rsquo;s balcony meditation in Chapter 1</strong> (after Down to Earth, find her in Jason&rsquo;s kitchen in the morning and follow her to the balcony) — it feeds Positive Mental Attitude, the one trophy that can be missed.</p>
+    </article>
+    <article class="stage">
+      <h3>Stage 2 — Reach 100% completion <span class="count" id="count2"></span></h3>
+      <p>After the story, open Progress &gt; Stats &gt; 100% Completion and work the checklist: robberies, fencing, collectibles, races, shooting range golds, drone trials, stunts and challenges. You only need portions of most categories — check the in-game totals before grinding everything. This stage is most of the 200 hours.</p>
+    </article>
+    <article class="stage">
+      <h3>Stage 3 — Clean up the rest <span class="count" id="count3"></span></h3>
+      <p>Side-story finales, Strangers &amp; Freaks strands, activities, robberies and miscellaneous trophies. Five hidden trophies have no confirmed unlock method yet at launch — this guide says so honestly where that is the case.</p>
+    </article>
+    <article class="stage platinum">
+      <h3>Platinum — Vice Got a Price! <span class="count" id="count4"></span></h3>
+      <p>Earn the other 54 trophies and the Platinum pops automatically. Congratulations — you&rsquo;re a Leonida Legend.</p>
+    </article>
+  </div>
+</section>
+
+<footer>
+  <p>Trophy names, descriptions and grades are as PlayStation publishes them (via Exophase / PSNProfiles). Guides are written in our own words; every concrete claim names its source beside it. Five trophies have no confirmed unlock method at launch — the guide says so rather than inventing one. No Rockstar artwork is used; the look is our own. Guide sources: KeenGamer, Output Lag, Push Square.</p>
+</footer>
+<script type="module" src="app.js"></script>
+</body>
+</html>
