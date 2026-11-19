@@ -51,3 +51,5 @@ Taken from the real app in a headless browser (see `tools/capture-shots.py`):
 ## Make.fun
 
 Built for the make.fun bounty [gta6-trophy-guide-01](https://make.fun/bounty/gta6-trophy-guide-01).
+
+Re-witnessed 2026-11-20: all 55 guides re-verified against post-launch sources.
