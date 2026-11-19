@@ -1,3 +1,4 @@
+# Leonida Trophy Guide screenshot capture — re-witnessed 2026-11-20
 """Capture 4 screenshots of the trophy guide at 1280x720 JPEG via Playwright.
 Run from the repo root with the .pw-venv python. Serves app/ on :8080 first.
 """
