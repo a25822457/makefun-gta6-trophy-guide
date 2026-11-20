@@ -1,6 +1,9 @@
-# Leonida Trophy Guide screenshot capture — re-witnessed 2026-11-20
+# Leonida Trophy Guide screenshot capture — round 2 (2026-11-20).
 """Capture 4 screenshots of the trophy guide at 1280x720 JPEG via Playwright.
 Run from the repo root with the .pw-venv python. Serves app/ on :8080 first.
+Shots: 1 cover (hero + KPI strip + progress + filters), 2 trophy detail modal
+(Positive Mental Attitude, the one missable trophy), 3 search demo ("bank",
+spoiler on — filtered list + masked hidden trophies), 4 roadmap.
 """
 import subprocess, time, os
 from playwright.sync_api import sync_playwright
@@ -33,27 +36,30 @@ try:
         page.wait_for_timeout(400)
         page.evaluate("window.scrollTo(0,0)")
         page.wait_for_timeout(300)
-        # 1. Cover: hero + progress + filters + first trophies with guides/sources.
+        # 1. Cover: hero + KPI strip + progress + filters + first trophies.
         page.screenshot(path=os.path.join(SHOTS, '1-checklist.jpg'), type='jpeg', quality=88)
-        # 2. Roadmap: scroll to the roadmap section.
+        # 2. Detail: open the detail modal for Positive Mental Attitude,
+        # the one missable trophy — guide, sources and warning in one view.
+        card = page.locator('.card', has=page.locator('h3:text-is("Positive Mental Attitude")'))
+        card.locator('.detail-link').click()
+        page.wait_for_timeout(500)
+        page.screenshot(path=os.path.join(SHOTS, '2-detail.jpg'), type='jpeg', quality=88)
+        page.keyboard.press('Escape')
+        page.wait_for_timeout(300)
+        # 3. Search demo: spoiler on, type "bank" — filtered list (6 hits)
+        # with hidden trophies masked, proving search + spoiler together.
+        page.locator('#spoiler').check()
+        page.locator('#search').fill('bank')
+        page.wait_for_timeout(500)
+        page.evaluate("window.scrollTo(0,0)")
+        page.wait_for_timeout(300)
+        page.screenshot(path=os.path.join(SHOTS, '3-search.jpg'), type='jpeg', quality=88)
+        # 4. Roadmap: clear the search, scroll to the roadmap section.
+        page.locator('#search').fill('')
+        page.wait_for_timeout(400)
         page.locator('#roadmap').scroll_into_view_if_needed()
         page.wait_for_timeout(400)
-        page.screenshot(path=os.path.join(SHOTS, '2-roadmap.jpg'), type='jpeg', quality=88)
-        # 3. Detail: missable filter on — centre the Positive Mental Attitude card.
-        page.evaluate("window.scrollTo(0,0)")
-        page.locator('#missable').check()
-        page.wait_for_timeout(400)
-        page.locator('.card', has_text='Positive Mental Attitude').scroll_into_view_if_needed()
-        page.wait_for_timeout(300)
-        page.screenshot(path=os.path.join(SHOTS, '3-missable.jpg'), type='jpeg', quality=88)
-        # 4. Spoiler at work: story category + spoiler on — hidden trophies masked.
-        page.locator('#missable').uncheck()
-        page.locator('#spoiler').check()
-        page.locator('#kind').select_option('story')
-        page.wait_for_timeout(400)
-        page.locator('.list').scroll_into_view_if_needed()
-        page.wait_for_timeout(300)
-        page.screenshot(path=os.path.join(SHOTS, '4-spoiler.jpg'), type='jpeg', quality=88)
+        page.screenshot(path=os.path.join(SHOTS, '4-roadmap.jpg'), type='jpeg', quality=88)
         browser.close()
 finally:
     server.terminate()
