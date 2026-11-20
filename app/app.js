@@ -10,6 +10,53 @@ const kindEl = document.getElementById('kind');
 const missableEl = document.getElementById('missable');
 const spoilerEl = document.getElementById('spoiler');
 const hideEarnedEl = document.getElementById('hideEarned');
+const detailEl = document.getElementById('detail');
+const detailCloseEl = document.getElementById('detail-close');
+const detailEarnedEl = document.getElementById('detail-earned');
+let detailTrophy = null;
+
+// Round 2: trophy detail view. Clicking a card opens the full guide,
+// sources and missable warning for that one trophy in a modal.
+function openDetail(t) {
+  detailTrophy = t;
+  document.getElementById('detail-meta').textContent = metaBits(t, false).join(' · ');
+  document.getElementById('detail-name').textContent = t.name;
+  document.getElementById('detail-missable').hidden = !t.missable;
+  document.getElementById('detail-desc').textContent = t.description;
+  document.getElementById('detail-guide').textContent = t.guide;
+  const src = document.getElementById('detail-sources');
+  src.replaceChildren(document.createTextNode('Sources: '));
+  t.sources.forEach((s, i) => {
+    if (i > 0) src.append(document.createTextNode(' · '));
+    const a = document.createElement('a');
+    a.href = s.url;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.textContent = s.name;
+    src.append(a);
+  });
+  detailEarnedEl.checked = earned.has(t.name);
+  detailEl.hidden = false;
+  detailCloseEl.focus();
+}
+
+function closeDetail() {
+  detailEl.hidden = true;
+  detailTrophy = null;
+}
+
+detailCloseEl.addEventListener('click', closeDetail);
+detailEl.querySelector('.modal-backdrop').addEventListener('click', closeDetail);
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !detailEl.hidden) closeDetail();
+});
+detailEarnedEl.addEventListener('change', () => {
+  if (!detailTrophy) return;
+  if (detailEarnedEl.checked) earned.add(detailTrophy.name);
+  else earned.delete(detailTrophy.name);
+  save();
+  render();
+});
 
 let earned = new Set(JSON.parse(localStorage.getItem(KEY) ?? '[]'));
 const doc = await (await fetch('data/trophies.json')).json();
@@ -41,6 +88,23 @@ function kindLabel(k) {
 
 function stageLabel(s) {
   return { 1: 'Stage 1 · Story', 2: 'Stage 2 · 100%', 3: 'Stage 3 · Clean-up', 4: 'Platinum' }[s] || '';
+}
+
+// Meta bits for a trophy, de-duplicated case-insensitively: the Platinum
+// trophy's grade, kind and stage are all "Platinum", which read as
+// "PLATINUM · PLATINUM · PLATINUM" before this fix.
+function metaBits(t, withMissable) {
+  const bits = [gradeLabel(t.grade), kindLabel(t.kind), stageLabel(t.stage)];
+  const seen = new Set();
+  const out = [];
+  for (const b of bits) {
+    const k = b.toLowerCase();
+    if (seen.has(k)) continue;
+    seen.add(k);
+    out.push(b);
+  }
+  if (withMissable && t.missable) out.push('MISSABLE');
+  return out;
 }
 
 function matches(t) {
@@ -86,12 +150,7 @@ function render() {
     title.append(name);
     const meta = document.createElement('p');
     meta.className = 'meta';
-    const bits = [gradeLabel(t.grade)];
-    if (!isHidden) {
-      bits.push(kindLabel(t.kind));
-      bits.push(stageLabel(t.stage));
-      if (t.missable) bits.push('MISSABLE');
-    }
+    const bits = isHidden ? [gradeLabel(t.grade)] : metaBits(t, true);
     meta.textContent = bits.join(' · ');
     title.append(meta);
     head.append(title);
@@ -121,12 +180,28 @@ function render() {
         src.append(a);
       });
       card.append(src);
+
+      const more = document.createElement('button');
+      more.type = 'button';
+      more.className = 'detail-link';
+      more.textContent = 'Full guide & sources →';
+      more.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openDetail(t);
+      });
+      card.append(more);
     } else {
       const note = document.createElement('p');
       note.className = 'spoiler-note';
       note.textContent = 'This is one of the 28 hidden trophies. Turn off “Hide story spoilers” to see it, or tick it off once you have earned it.';
       card.append(note);
     }
+    // Clicking the card (not its checkbox) opens the trophy detail view.
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('input[type="checkbox"], .detail-link')) return;
+      if (isHidden) return;
+      openDetail(t);
+    });
     list.append(card);
   }
 

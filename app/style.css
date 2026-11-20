@@ -33,6 +33,16 @@ a { color: var(--cyan); }
 .hero h1 { margin: 0 0 6px; font-size: 40px; line-height: 1.05; }
 .sub { color: var(--muted); max-width: 760px; margin: 0 0 16px; }
 .progress-wrap { max-width: 760px; }
+.stats {
+  display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 6px; max-width: 900px;
+}
+.stats div {
+  background: rgba(255, 255, 255, .06); border: 1px solid var(--line);
+  border-radius: 8px; padding: 8px 12px; min-width: 110px;
+}
+.stats dt { font-size: 17px; font-weight: 800; color: var(--gold); margin: 0; }
+.stats dd { font-size: 12px; color: var(--muted); margin: 2px 0 0; }
+.stats-note { color: var(--muted); font-size: 12px; margin: 0 0 16px; max-width: 760px; }
 .progress-bar { height: 12px; background: #2a1845; border-radius: 6px; overflow: hidden; }
 .progress-bar div { height: 100%; background: linear-gradient(90deg, var(--pink), var(--cyan)); }
 #progress { font-weight: 700; margin: 8px 0 2px; }
@@ -78,14 +88,45 @@ a { color: var(--cyan); }
 }
 .card {
   background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px;
-  border-left: 5px solid var(--bronze);
+  border-left: 5px solid var(--bronze); cursor: pointer;
 }
+.card:hover { border-color: var(--pink); }
 .card[data-grade="platinum"] { border-left-color: var(--plat); }
 .card[data-grade="gold"] { border-left-color: var(--gold); }
 .card[data-grade="silver"] { border-left-color: var(--silver); }
 .card.earned { opacity: .62; }
 .card.earned h3 { text-decoration: line-through; }
 .card.missable { outline: 1px dashed var(--danger); outline-offset: -1px; }
+.detail-link {
+  margin-top: 10px; padding: 0; border: none; background: none; cursor: pointer;
+  color: var(--cyan); font-size: 13px; font-weight: 700;
+}
+.detail-link:hover { text-decoration: underline; }
+
+/* Round 2: trophy detail modal. */
+.modal[hidden] { display: none; }
+.modal { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.modal-backdrop { position: absolute; inset: 0; background: rgba(5, 2, 12, .78); }
+.modal-card {
+  position: relative; width: min(640px, 100%); max-height: 88vh; overflow: auto;
+  background: var(--panel2); border: 1px solid var(--pink); border-radius: 14px; padding: 24px 24px 20px;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, .6);
+}
+.modal-card h2 { margin: 0 0 10px; font-size: 28px; line-height: 1.2; }
+.modal-card .meta { margin: 0 0 6px; }
+.modal-card .desc { font-size: 16px; }
+.modal-card .guide { font-size: 16px; line-height: 1.6; }
+#detail-close {
+  position: absolute; top: 10px; right: 14px; border: none; background: none; cursor: pointer;
+  color: var(--muted); font-size: 30px; line-height: 1; padding: 4px 8px;
+}
+#detail-close:hover { color: var(--ink); }
+.missable-banner {
+  background: rgba(255, 90, 90, .14); border: 1px solid var(--danger); border-radius: 8px;
+  padding: 10px 12px; font-size: 14px; font-weight: 700; color: #ffb3b3; margin: 0 0 12px;
+}
+.detail-earned { display: flex; gap: 8px; align-items: center; margin-top: 16px; font-weight: 700; }
+.detail-earned input { width: 20px; height: 20px; accent-color: var(--pink); }
 .card-head { display: flex; gap: 10px; align-items: flex-start; }
 .card-head input[type="checkbox"] { width: 20px; height: 20px; margin-top: 3px; accent-color: var(--pink); flex: none; }
 .card-title h3 { margin: 0; font-size: 18px; line-height: 1.25; }

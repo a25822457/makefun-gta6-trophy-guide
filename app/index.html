@@ -13,6 +13,15 @@
   <p class="kicker">Grand Theft Auto VI &middot; PlayStation 5 &middot; offline guide &amp; tracker</p>
   <h1>Leonida Trophy Guide</h1>
   <p class="sub">Every one of the 55 trophies, with a guide in our own words and the source for every fact. Tick them off as you earn them — progress is saved on this device.</p>
+  <dl class="stats">
+    <div><dt>55</dt><dd>trophies</dd></div>
+    <div><dt>1 · 2 · 6 · 46</dt><dd>Platinum · Gold · Silver · Bronze</dd></div>
+    <div><dt>28 hidden</dt><dd>story trophies</dd></div>
+    <div><dt>1 missable</dt><dd>do it in Chapter 1</dd></div>
+    <div><dt>~200 hours</dt><dd>to the Platinum</dd></div>
+    <div><dt>4 / 10</dt><dd>Platinum difficulty*</dd></div>
+  </dl>
+  <p class="stats-note">*Platinum difficulty 4/10 and the ~200-hour estimate are from KeenGamer&rsquo;s roadmap.</p>
   <div class="progress-wrap">
     <div class="progress-bar"><div id="bar" style="width:0%"></div></div>
     <p id="progress">0 of 55 earned &middot; 0% to the Platinum</p>
@@ -50,7 +59,7 @@
   <button id="export" type="button">Export progress</button>
   <label class="import">Import progress <input id="import" type="file" accept="application/json"></label>
 </div>
-<p class="hint">Tap a trophy to open its guide and sources. Story trophies stay hidden while the spoiler setting is on — tick one off and it reveals itself.</p>
+<p class="hint">Tap a trophy card to open its full guide and sources. Story trophies stay hidden while the spoiler setting is on — tick one off and it reveals itself.</p>
 
 <main id="list" class="list"></main>
 
@@ -80,6 +89,20 @@
 <footer>
   <p>Trophy names, descriptions and grades are as PlayStation publishes them (via Exophase / PSNProfiles). Guides are written in our own words; every concrete claim names its source beside it. Five trophies have no confirmed unlock method at launch — the guide says so rather than inventing one. No Rockstar artwork is used; the look is our own. Guide sources: KeenGamer, Output Lag, Push Square.</p>
 </footer>
+
+<div id="detail" class="modal" hidden>
+  <div class="modal-backdrop" data-close></div>
+  <article class="modal-card" role="dialog" aria-modal="true" aria-labelledby="detail-name">
+    <button id="detail-close" type="button" aria-label="Close detail">×</button>
+    <p id="detail-meta" class="meta"></p>
+    <h2 id="detail-name"></h2>
+    <p id="detail-missable" class="missable-banner" hidden>⚠ The one missable trophy — do this in Chapter 1, before the chapter ends. There is no mission replay.</p>
+    <p id="detail-desc" class="desc"></p>
+    <p id="detail-guide" class="guide"></p>
+    <p id="detail-sources" class="sources"></p>
+    <label class="detail-earned"><input id="detail-earned" type="checkbox"> Mark as earned</label>
+  </article>
+</div>
 <script type="module" src="app.js"></script>
 </body>
 </html>
