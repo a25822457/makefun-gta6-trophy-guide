@@ -20,8 +20,9 @@
     <div><dt>1 missable</dt><dd>do it in Chapter 1</dd></div>
     <div><dt>~200 hours</dt><dd>to the Platinum</dd></div>
     <div><dt>4 / 10</dt><dd>Platinum difficulty*</dd></div>
+    <div><dt>2 Very Hard</dt><dd>incl. A Long Road</dd></div>
   </dl>
-  <p class="stats-note">*Platinum difficulty 4/10 and the ~200-hour estimate are from KeenGamer&rsquo;s roadmap.</p>
+  <p class="stats-note">*Platinum difficulty 4/10 and the ~200-hour estimate are from KeenGamer&rsquo;s roadmap. Per-trophy difficulty and time estimates are our own ratings from each trophy&rsquo;s requirement and the PowerPyx roadmap steps (story 60–80 h, 100% checklist ~100 h, clean-up ~10 h); times are rough ranges, and trophies whose method is still unconfirmed say so instead of guessing.</p>
   <div class="progress-wrap">
     <div class="progress-bar"><div id="bar" style="width:0%"></div></div>
     <p id="progress">0 of 55 earned &middot; 0% to the Platinum</p>
@@ -51,6 +52,22 @@
       <option value="economy">Money</option>
       <option value="completion">Completion</option>
       <option value="misc">Miscellaneous</option>
+    </select>
+  </label>
+  <label>Difficulty
+    <select id="difficulty">
+      <option value="all">All difficulties</option>
+      <option value="Easy">Easy</option>
+      <option value="Medium">Medium</option>
+      <option value="Hard">Hard</option>
+      <option value="Very Hard">Very Hard</option>
+    </select>
+  </label>
+  <label>Sort
+    <select id="sort">
+      <option value="default">List order</option>
+      <option value="easiest">Easiest first</option>
+      <option value="hardest">Hardest first</option>
     </select>
   </label>
   <label class="check"><input id="missable" type="checkbox"> Missable only</label>
@@ -87,7 +104,7 @@
 </section>
 
 <footer>
-  <p>Trophy names, descriptions and grades are as PlayStation publishes them (via Exophase / PSNProfiles). Guides are written in our own words; every concrete claim names its source beside it. Five trophies have no confirmed unlock method at launch — the guide says so rather than inventing one. No Rockstar artwork is used; the look is our own. Guide sources: KeenGamer, Output Lag, Push Square.</p>
+  <p>Trophy names, descriptions and grades are as PlayStation publishes them (via Exophase / PSNProfiles). Guides are written in our own words; every concrete claim names its source beside it. Difficulty and time estimates are per-trophy ratings from each trophy&rsquo;s requirement and the PowerPyx roadmap (story 60–80 h, 100% checklist ~100 h, clean-up ~10 h); five trophies have no confirmed unlock method at launch — the guide says so rather than inventing one. No Rockstar artwork is used; the look is our own. Guide sources: KeenGamer, Output Lag, Push Square, PowerPyx.</p>
 </footer>
 
 <div id="detail" class="modal" hidden>
@@ -97,6 +114,7 @@
     <p id="detail-meta" class="meta"></p>
     <h2 id="detail-name"></h2>
     <p id="detail-missable" class="missable-banner" hidden>⚠ The one missable trophy — do this in Chapter 1, before the chapter ends. There is no mission replay.</p>
+    <p class="diff-row"><span id="detail-diff" class="diff-badge"></span><span id="detail-time" class="time-est"></span></p>
     <p id="detail-desc" class="desc"></p>
     <p id="detail-guide" class="guide"></p>
     <p id="detail-sources" class="sources"></p>

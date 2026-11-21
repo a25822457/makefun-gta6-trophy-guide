@@ -135,4 +135,18 @@ a { color: var(--cyan); }
 .guide { margin: 0 0 8px; font-size: 15px; }
 .sources { margin: 0; font-size: 12px; color: var(--muted); }
 .spoiler-note { color: var(--muted); font-size: 14px; margin: 10px 0 0; }
+/* Round 3: difficulty badges and time estimates. */
+.diff-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0 0; }
+.diff-badge {
+  display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .05em; border: 1px solid transparent;
+}
+.diff-badge[data-difficulty="Easy"] { color: #7df0c8; border-color: #2f8f6e; background: rgba(55, 224, 216, .12); }
+.diff-badge[data-difficulty="Medium"] { color: var(--gold); border-color: #8a6d2f; background: rgba(255, 200, 87, .12); }
+.diff-badge[data-difficulty="Hard"] { color: #ffb08a; border-color: #9a4a1e; background: rgba(224, 149, 90, .14); }
+.diff-badge[data-difficulty="Very Hard"] { color: #ff8fb8; border-color: #a12050; background: rgba(255, 77, 157, .16); }
+.time-est { color: var(--muted); font-size: 13px; }
+.modal-card .diff-row { margin: 0 0 12px; }
+.modal-card .time-est { font-size: 14px; color: var(--ink); }
+
 footer { max-width: 1100px; margin: 0 auto; padding: 0 20px 28px; color: var(--muted); font-size: 13px; }

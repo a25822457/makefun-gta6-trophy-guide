@@ -7,6 +7,8 @@ const list = document.getElementById('list');
 const searchEl = document.getElementById('search');
 const gradeEl = document.getElementById('grade');
 const kindEl = document.getElementById('kind');
+const diffEl = document.getElementById('difficulty');
+const sortEl = document.getElementById('sort');
 const missableEl = document.getElementById('missable');
 const spoilerEl = document.getElementById('spoiler');
 const hideEarnedEl = document.getElementById('hideEarned');
@@ -17,11 +19,19 @@ let detailTrophy = null;
 
 // Round 2: trophy detail view. Clicking a card opens the full guide,
 // sources and missable warning for that one trophy in a modal.
+// Round 3: difficulty & time in the detail view. Difficulty ratings are
+// per-trophy estimates from the requirement and the PowerPyx/KeenGamer
+// roadmap (story 60-80 h, 100% checklist ~100 h, cleanup ~10 h); time
+// estimates are rough ranges, and the five trophies whose method is still
+// unconfirmed say "Unknown" rather than inventing a number.
 function openDetail(t) {
   detailTrophy = t;
   document.getElementById('detail-meta').textContent = metaBits(t, false).join(' · ');
   document.getElementById('detail-name').textContent = t.name;
   document.getElementById('detail-missable').hidden = !t.missable;
+  document.getElementById('detail-diff').textContent = 'Difficulty: ' + t.difficulty;
+  document.getElementById('detail-diff').dataset.difficulty = t.difficulty;
+  document.getElementById('detail-time').textContent = 'Time: ' + t.time_estimate + ' (estimate)';
   document.getElementById('detail-desc').textContent = t.description;
   document.getElementById('detail-guide').textContent = t.guide;
   const src = document.getElementById('detail-sources');
@@ -107,11 +117,16 @@ function metaBits(t, withMissable) {
   return out;
 }
 
+function difficultyRank(d) {
+  return { 'Easy': 0, 'Medium': 1, 'Hard': 2, 'Very Hard': 3 }[d] ?? 1;
+}
+
 function matches(t) {
   const q = searchEl.value.trim().toLowerCase();
   if (q && !(t.name + ' ' + t.description + ' ' + t.guide).toLowerCase().includes(q)) return false;
   if (gradeEl.value !== 'all' && t.grade !== gradeEl.value) return false;
   if (kindEl.value !== 'all' && t.kind !== kindEl.value) return false;
+  if (diffEl.value !== 'all' && t.difficulty !== diffEl.value) return false;
   if (missableEl.checked && !t.missable) return false;
   if (hideEarnedEl.checked && earned.has(t.name)) return false;
   return true;
@@ -120,7 +135,10 @@ function matches(t) {
 function render() {
   list.replaceChildren();
   let shown = 0;
-  for (const t of trophies) {
+  const ordered = [...trophies];
+  if (sortEl.value === 'easiest') ordered.sort((a, b) => difficultyRank(a.difficulty) - difficultyRank(b.difficulty));
+  if (sortEl.value === 'hardest') ordered.sort((a, b) => difficultyRank(b.difficulty) - difficultyRank(a.difficulty));
+  for (const t of ordered) {
     if (!matches(t)) continue;
     shown++;
     const isEarned = earned.has(t.name);
@@ -157,6 +175,19 @@ function render() {
     card.append(head);
 
     if (!isHidden) {
+      const diffRow = document.createElement('p');
+      diffRow.className = 'diff-row';
+      const badge = document.createElement('span');
+      badge.className = 'diff-badge';
+      badge.dataset.difficulty = t.difficulty;
+      badge.textContent = t.difficulty;
+      diffRow.append(badge);
+      const time = document.createElement('span');
+      time.className = 'time-est';
+      time.textContent = t.time_estimate;
+      diffRow.append(time);
+      card.append(diffRow);
+
       const desc = document.createElement('p');
       desc.className = 'desc';
       desc.textContent = t.description;
@@ -237,7 +268,7 @@ document.getElementById('import').addEventListener('change', async (e) => {
     alert('That file could not be read as trophy progress.');
   }
 });
-for (const el of [searchEl, gradeEl, kindEl, missableEl, spoilerEl, hideEarnedEl]) {
+for (const el of [searchEl, gradeEl, kindEl, diffEl, sortEl, missableEl, spoilerEl, hideEarnedEl]) {
   el.addEventListener('input', render);
   el.addEventListener('change', render);
 }
