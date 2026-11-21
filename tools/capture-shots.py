@@ -1,9 +1,10 @@
-# Leonida Trophy Guide screenshot capture — round 2 (2026-11-20).
+# Leonida Trophy Guide screenshot capture — round 3 (2026-11-21).
 """Capture 4 screenshots of the trophy guide at 1280x720 JPEG via Playwright.
 Run from the repo root with the .pw-venv python. Serves app/ on :8080 first.
-Shots: 1 cover (hero + KPI strip + progress + filters), 2 trophy detail modal
-(Positive Mental Attitude, the one missable trophy), 3 search demo ("bank",
-spoiler on — filtered list + masked hidden trophies), 4 roadmap.
+Shots: 1 cover (hero + KPI strip incl. difficulty stat + filters + first
+trophies with difficulty badges), 2 trophy detail modal (A Long Road —
+Very Hard, ~100 hours), 3 difficulty filter demo ("Hard" selected,
+3 Hard trophies), 4 roadmap.
 """
 import subprocess, time, os
 from playwright.sync_api import sync_playwright
@@ -36,26 +37,27 @@ try:
         page.wait_for_timeout(400)
         page.evaluate("window.scrollTo(0,0)")
         page.wait_for_timeout(300)
-        # 1. Cover: hero + KPI strip + progress + filters + first trophies.
+        # 1. Cover: hero + KPI strip + filters (incl. difficulty) + first
+        # trophies with their difficulty badges and time estimates.
         page.screenshot(path=os.path.join(SHOTS, '1-checklist.jpg'), type='jpeg', quality=88)
-        # 2. Detail: open the detail modal for Positive Mental Attitude,
-        # the one missable trophy — guide, sources and warning in one view.
-        card = page.locator('.card', has=page.locator('h3:text-is("Positive Mental Attitude")'))
+        # 2. Detail: open the detail modal for A Long Road — Very Hard,
+        # ~100 hours, the hardest trophy in the game.
+        card = page.locator('.card', has=page.locator('h3:text-is("A Long Road")'))
         card.locator('.detail-link').click()
         page.wait_for_timeout(500)
         page.screenshot(path=os.path.join(SHOTS, '2-detail.jpg'), type='jpeg', quality=88)
         page.keyboard.press('Escape')
         page.wait_for_timeout(300)
-        # 3. Search demo: spoiler on, type "bank" — filtered list (6 hits)
-        # with hidden trophies masked, proving search + spoiler together.
+        # 3. Difficulty filter demo: spoiler on, filter to "Hard" — the 3
+        # Hard trophies (Cunning Stunts, The Shootist, Personal Best).
         page.locator('#spoiler').check()
-        page.locator('#search').fill('bank')
+        page.locator('#difficulty').select_option('Hard')
         page.wait_for_timeout(500)
         page.evaluate("window.scrollTo(0,0)")
         page.wait_for_timeout(300)
         page.screenshot(path=os.path.join(SHOTS, '3-search.jpg'), type='jpeg', quality=88)
-        # 4. Roadmap: clear the search, scroll to the roadmap section.
-        page.locator('#search').fill('')
+        # 4. Roadmap: clear the filter, scroll to the roadmap section.
+        page.locator('#difficulty').select_option('all')
         page.wait_for_timeout(400)
         page.locator('#roadmap').scroll_into_view_if_needed()
         page.wait_for_timeout(400)
